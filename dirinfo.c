@@ -19,5 +19,16 @@
 #include <dirent.h>
 
 int main(){
+  DIR *d;
+  d = opendir(".");
+  if (errno < 0){
+    printf("ERROR opening directory: %d: %s\n",errno, strerror);
+  }
+  struct dirent *file;
+  file = readdir(d);
+  while (file){
+    printf("file: %s\n", file->d_name);
+    file = readdir(d);
+  }
   return 0;
 }
