@@ -18,6 +18,81 @@
 #include <time.h>
 #include <dirent.h>
 
+// int filecount(char * c, char * path, int prevsize){ //recursively counts number of files
+//   DIR *d;
+//   char s[100];
+//   char x;
+//   strcpy(s, path);
+//   strcat(s, c); //create path
+//   printf("Path %s\n", s);
+//   d = opendir(path);
+//   if (errno < 0){
+//     printf("ERROR opening directory: %d: %s\n",errno, strerror);
+//     return prevsize;
+//   }
+//   struct dirent *file;
+//   file = readdir(d);
+//   struct stat buffer;
+//   while (file){ //while files are in this directory
+//     stat(file->d_name, &buffer);
+//     sprintf(s, "%o", buffer.st_mode);
+//     x = s[0];
+//     if (x == '1'){ //then regular file
+//       prevsize ++;
+//     } //otherwise directory and run function again on that filename
+//     else{ //another directory
+//       strcat(s, "/");
+//       prevsize = filecount(file->d_name, s, prevsize);
+//     }
+//     file = readdir(d);
+//   }
+//   return prevsize;
+// }
+
+//attempted to count how many files were inside
+void convertpermissions(char * c){ //mode_t
+  char s[100];
+  strcpy(s, "");
+  int i;
+  // printf("-");
+  for (i = 3; i < 6; i++){
+    if (*(c + i) == '0'){
+      strcat(s, "---");
+      // printf("---");
+    }
+    else if (*(c + i) == '1'){
+      strcat(s, "--x");
+      // printf("--x");
+    }
+    else if (*(c + i) == '2'){
+      strcat(s, "-w-");
+      // printf("-w-");
+    }
+    else if (*(c + i) == '3'){
+      strcat(s, "-wx");
+      // printf("-wx");
+    }
+    else if (*(c + i) == '4'){
+      strcat(s, "r--");
+      // printf("r--");
+    }
+    else if (*(c + i) == '5'){
+      strcat(s, "r-x");
+      // printf("r-x");
+    }
+    else if (*(c + i) == '6'){
+      strcat(s, "rw-");
+      // printf("rw-");
+    }
+    else{ //file permissions is 7
+      strcat(s, "rwx");
+      // printf("rwx");
+    }
+  }
+  strcpy(c, s);
+// from last assignment
+}
+
 int main(){
   DIR *d;
   d = opendir(".");
@@ -32,36 +107,45 @@ int main(){
     printf("ERROR in stat directory: %d: %s\n",errno, strerror);
   }
   printf("Statistics for directory:\n");
-  char reg[100];
-  char dir[100];
+  char reg[200];
+  char dir[200];
   char s[100];
   char c;
   int bytes = 0;
+  // int files = 0;
   strcpy(reg, ""); //makes sure that they are empty strings
   strcpy(dir, ""); //for some reason reg and dir had weird chars and the beginning
   while (file){
     stat(file->d_name, &buffer);
     bytes += buffer.st_size;
+    // files ++;
     sprintf(s, "%o", buffer.st_mode);
     // printf("%o\n", buffer.st_mode);
-    // printf("%s\n", s);
+    // printf("File: %s | Permissions: %s\n", file->d_name, s);
     c = s[0];
     // printf("%s\n", c);
+    convertpermissions(s);
     if (c =='1'){ //regular
+      strcat(reg, "-");
+      strcat(reg, s);
       strcat(reg, "\t");
       strcat(reg, file->d_name);
       strcat(reg, "\n");
       // printf("Added %s to reg\n",file->d_name );
     }
     else{
+      strcat(dir, "d");
+      strcat(dir, s);
       strcat(dir, "\t");
       strcat(dir, file->d_name);
       strcat(dir, "\n");
+      // files = filecount(file->d_name, "./", files);
     }
     // printf("\t%s\n", file->d_name);
     file = readdir(d);
   }
   printf("Total Directory Size: %d Bytes\n", bytes);
+  // printf("Number of Files in Directory: %d\n", files);
   printf("Directories: \n");
   printf("%s\n", dir);
   printf("Regular files:\n");
