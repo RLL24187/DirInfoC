@@ -135,6 +135,7 @@ int main(){
       // printf("Added %s to reg\n",file->d_name );
     }
     else{
+      convertpermissions(s, 1);
       strcat(dir, "d");
       strcat(dir, s);
       strcat(dir, "\t");
