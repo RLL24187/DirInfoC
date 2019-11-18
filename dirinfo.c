@@ -50,13 +50,13 @@
 // }
 
 //attempted to count how many files were inside
-void convertpermissions(char * c){ //mode_t
+void convertpermissions(char * c, int offset){ //offset for directory: 1, regular file: 0
   printf("%s\n", c);
   char s[100];
   strcpy(s, "");
   int i;
   // printf("-");
-  for (i = 3; i < 6; i++){
+  for (i = 3 - offset; i < 6; i++){
     if (*(c + i) == '0'){
       strcat(s, "---");
       // printf("---");
@@ -125,8 +125,8 @@ int main(){
     // printf("File: %s | Permissions: %s\n", file->d_name, s);
     c = s[0];
     // printf("%s\n", c);
-    convertpermissions(s);
     if (c =='1'){ //regular
+      convertpermissions(s, 0);
       strcat(reg, "-");
       strcat(reg, s);
       strcat(reg, "\t");
