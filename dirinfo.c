@@ -51,6 +51,7 @@
 
 //attempted to count how many files were inside
 void convertpermissions(char * c){ //mode_t
+  printf("%s\n", c);
   char s[100];
   strcpy(s, "");
   int i;
