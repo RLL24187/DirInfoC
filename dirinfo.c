@@ -56,7 +56,7 @@ void convertpermissions(char * c, int offset){ //offset for directory: 1, regula
   strcpy(s, "");
   int i;
   // printf("-");
-  for (i = 3 - offset; i < 6; i++){
+  for (i = 3 - offset; i < 6 - offset; i++){
     if (*(c + i) == '0'){
       strcat(s, "---");
       // printf("---");
