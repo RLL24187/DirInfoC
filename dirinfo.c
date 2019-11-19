@@ -150,7 +150,7 @@ int main(int argc, char *argv[]){
       strcat(reg, "\t");
       strcat(reg, file->d_name);
       strcat(reg, "\n");
-      // printf("Added %s to reg\n",file->d_name );
+      printf("Added %s to reg\n",file->d_name );
     }
     else{
       convertpermissions(s, 1);
