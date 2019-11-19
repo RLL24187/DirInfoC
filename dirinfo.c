@@ -108,8 +108,8 @@ int main(int argc, char *argv[]){
     char name[100];
     printf("Enter a file name: \n");
     fgets(name, 100, stdin);
-    printf("Printing information for directory '%s'\n", name); //adds a newline to the end of name
     name[strlen(name)-1] = 0; //changes newline to NULL
+    printf("Printing information for directory '%s'\n", name); //adds a newline to the end of name
     d = opendir(name);
     // d = opendir(".");
   }
@@ -162,7 +162,7 @@ int main(int argc, char *argv[]){
       // files = filecount(file->d_name, "./", files);
       printf("Added %s permissions %o to dir\n",file->d_name, buffer.st_mode );
     }
-    printf("\t%s\n", file->d_name);
+    // printf("\t%s\n", file->d_name);
     file = readdir(d);
   }
   printf("Total Directory Size: %d Bytes\n", bytes);
@@ -171,5 +171,7 @@ int main(int argc, char *argv[]){
   printf("%s\n", dir);
   printf("Regular files:\n");
   printf("%s\n", reg);
+  stat(file->d_name, &buffer);
+  printf("Permissions of %s: %o\n", file->d_name, buffer.st_mode);
   return 0;
 }
