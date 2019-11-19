@@ -168,22 +168,24 @@ char name[100];
   printf("%s\n", reg);
 
 
-  printf(".: \n");
-  d = opendir(".");
-  file = readdir(d);
-  stat(file->d_name, &buffer);
-  printf("filename: %s | permissions: %o\n", file->d_name, buffer.st_mode);
-  file = readdir(d);
-  stat(file->d_name, &buffer);
-  printf("filename: %s | permissions: %o\n", file->d_name, buffer.st_mode);
-  file = readdir(d);
-  stat(file->d_name, &buffer);
-  printf("filename: %s | permissions: %o\n", file->d_name, buffer.st_mode);
-  return 0;
-  file = readdir(d);
-  stat(file->d_name, &buffer);
-  printf("filename: %s | permissions: %o\n", file->d_name, buffer.st_mode);
-  printf("Testfolder: \n");
+  // printf(".: \n");
+  // // d = opendir(".");
+  // // file = readdir(d);
+  // // stat(file->d_name, &buffer);
+  // // printf("filename: %s | permissions: %o\n", file->d_name, buffer.st_mode);
+  // // file = readdir(d);
+  // // stat(file->d_name, &buffer);
+  // // printf("filename: %s | permissions: %o\n", file->d_name, buffer.st_mode);
+  // // file = readdir(d);
+  // // stat(file->d_name, &buffer);
+  // // printf("filename: %s | permissions: %o\n", file->d_name, buffer.st_mode);
+  // // return 0;
+  // // file = readdir(d);
+  // // stat(file->d_name, &buffer);
+  // // printf("filename: %s | permissions: %o\n", file->d_name, buffer.st_mode);
+
+
+  printf("testfolder: \n");
   d = opendir("testfolder");
   file = readdir(d);
   stat(file->d_name, &buffer);
