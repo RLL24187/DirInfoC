@@ -171,7 +171,5 @@ int main(int argc, char *argv[]){
   printf("%s\n", dir);
   printf("Regular files:\n");
   printf("%s\n", reg);
-  stat(file->d_name, &buffer);
-  printf("Permissions of %s: %o\n", file->d_name, buffer.st_mode);
   return 0;
 }
