@@ -114,7 +114,7 @@ int main(int argc, char *argv[]){
     // d = opendir(".");
   }
   if (errno < 0){
-    printf("ERROR opening directory: %d: %s\n",errno, strerror);
+    printf("ERROR opening directory: %d: %s\n",errno, strerror(errno));
     return 0;
   }
   struct dirent *file;
@@ -122,7 +122,7 @@ int main(int argc, char *argv[]){
   struct stat buffer;
   stat(".", &buffer);
   if (errno < 0){
-    printf("ERROR in stat directory: %d: %s\n",errno, strerror);
+    printf("ERROR in stat directory: %d: %s\n",errno, strerror(errno));
     return 0;
   }
   printf("Statistics for directory:\n");
