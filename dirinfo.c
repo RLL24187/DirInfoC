@@ -94,11 +94,27 @@ void convertpermissions(char * c, int offset){ //offset for directory: 1, regula
 // from last assignment
 }
 
-int main(){
+int main(int argc, char *argv[]){
   DIR *d;
-  d = opendir(".");
+  // Your program should handle user input as follows:
+// If a command line argument is entered, use that as the directory to scan.
+// If not, the program should ask the user to enter a directory to scan.
+// In either case, don't assume your user knows what they are doing, if an invalid directory is entered, take reasonable action (*ahem* errno *cough cough*)
+  if (argc > 1){
+    d = opendir(argv[1]);
+    printf("Printing information for directory '%s'\n", argv[1]);
+  }
+  else{
+    char name[100];
+    printf("Enter a file name: \n");
+    fgets(name, 100, stdin);
+    printf("Printing information for directory '%s'\n", name);
+    d = opendir(name);
+    // d = opendir(".");
+  }
   if (errno < 0){
     printf("ERROR opening directory: %d: %s\n",errno, strerror);
+    return 0;
   }
   struct dirent *file;
   file = readdir(d);
@@ -106,6 +122,7 @@ int main(){
   stat(".", &buffer);
   if (errno < 0){
     printf("ERROR in stat directory: %d: %s\n",errno, strerror);
+    return 0;
   }
   printf("Statistics for directory:\n");
   char reg[200];
