@@ -18,7 +18,7 @@
 #include <time.h>
 #include <dirent.h>
 
-// int filecount(char * c, char * path, int prevsize){ //recursively counts number of files
+/* int filecount(char * c, char * path, int prevsize){ //recursively counts number of files
 //   DIR *d;
 //   char s[100];
 //   char x;
@@ -47,9 +47,9 @@
 //     file = readdir(d);
 //   }
 //   return prevsize;
-// }
-
+// } */
 //attempted to count how many files were inside
+
 void convertpermissions(char * c, int offset){ //offset for directory: 1, regular file: 0
   printf("%s\n", c);
   char s[100];
@@ -120,11 +120,6 @@ char name[100];
   struct dirent *file;
   file = readdir(d);
   struct stat buffer;
-  // stat(name, &buffer);
-  // if (errno < 0){
-  //   printf("ERROR in stat directory: %d: %s\n",errno, strerror(errno));
-  //   return 0;
-  // }
   printf("Statistics for directory:\n");
   char reg[200];
   char dir[200];
@@ -140,7 +135,7 @@ char name[100];
     // files ++;
     sprintf(s, "%o", buffer.st_mode);
     printf("%o\n", buffer.st_mode);
-    // printf("File: %s | Permissions: %s\n", file->d_name, s);
+    printf("File: %s | Permissions: %s\n", file->d_name, s);
     c = s[0];
     // printf("%s\n", c);
     if (c =='1'){ //regular
@@ -152,7 +147,7 @@ char name[100];
       strcat(reg, "\n");
       printf("Added %s to reg\n",file->d_name );
     }
-    else{
+    else{ //directory
       convertpermissions(s, 1);
       strcat(dir, "d");
       strcat(dir, s);
