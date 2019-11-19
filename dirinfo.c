@@ -171,6 +171,7 @@ int main(int argc, char *argv[]){
   printf("%s\n", dir);
   printf("Regular files:\n");
   printf("%s\n", reg);
+  d = opendir("testfolder");
   file = readdir(d);
   file = readdir(d);
   file = readdir(d);
