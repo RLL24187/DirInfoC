@@ -102,16 +102,16 @@ int main(int argc, char *argv[]){
 // In either case, don't assume your user knows what they are doing, if an invalid directory is entered, take reasonable action (*ahem* errno *cough cough*)
 char name[100];
   if (argc > 1){
-    d = opendir(argv[1]);
+    // d = opendir(argv[1]);
     strcpy(name, argv[1]);
   }
   else{
     printf("Enter a file name: \n");
     fgets(name, 100, stdin); //adds a newline to the end of name
     name[strlen(name)-1] = 0; //changes newline to NULL
-    d = opendir(name);
     // d = opendir(".");
   }
+  d = opendir(name);
   printf("Printing information for directory '%s'\n", name);
   if (d == NULL || errno < 0){
     printf("ERROR opening directory: %d: %s\n",errno, strerror(errno));
