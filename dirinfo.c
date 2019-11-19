@@ -184,7 +184,7 @@ char name[100];
   // // stat(file->d_name, &buffer);
   // // printf("filename: %s | permissions: %o\n", file->d_name, buffer.st_mode);
 
-  closedir();
+  closedir(d);
   printf("testfolder: \n");
   d = opendir("./testfolder");
   file = readdir(d);
