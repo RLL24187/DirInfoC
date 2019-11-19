@@ -103,7 +103,7 @@ int main(int argc, char *argv[]){
 char name[100];
   if (argc > 1){
     d = opendir(argv[1]);
-    name = argv[1];
+    strcpy(name, argv[1]);
   }
   else{
     printf("Enter a file name: \n");
