@@ -51,7 +51,7 @@
 //attempted to count how many files were inside
 
 void convertpermissions(char * c, int offset){ //offset for directory: 1, regular file: 0
-  printf("%s\n", c);
+  // printf("%s\n", c);
   char s[100];
   strcpy(s, "");
   int i;
@@ -134,8 +134,8 @@ char name[100];
     bytes += buffer.st_size;
     // files ++;
     sprintf(s, "%o", buffer.st_mode);
-    printf("%o\n", buffer.st_mode);
-    printf("File: %s | Permissions: %s\n", file->d_name, s);
+    // printf("%o\n", buffer.st_mode);
+    // printf("File: %s | Permissions: %s\n", file->d_name, s);
     c = s[0];
     // printf("%s\n", c);
     if (c =='1'){ //regular
@@ -186,7 +186,7 @@ char name[100];
 
 
   printf("testfolder: \n");
-  d = opendir("testfolder");
+  d = opendir("./testfolder");
   file = readdir(d);
   stat(file->d_name, &buffer);
   printf("filename: %s | permissions: %o\n", file->d_name, buffer.st_mode);
