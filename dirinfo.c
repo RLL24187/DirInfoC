@@ -120,11 +120,11 @@ char name[100];
   struct dirent *file;
   file = readdir(d);
   struct stat buffer;
-  stat(name, &buffer);
-  if (errno < 0){
-    printf("ERROR in stat directory: %d: %s\n",errno, strerror(errno));
-    return 0;
-  }
+  // stat(name, &buffer);
+  // if (errno < 0){
+  //   printf("ERROR in stat directory: %d: %s\n",errno, strerror(errno));
+  //   return 0;
+  // }
   printf("Statistics for directory:\n");
   char reg[200];
   char dir[200];
