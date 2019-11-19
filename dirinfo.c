@@ -139,7 +139,7 @@ char name[100];
     bytes += buffer.st_size;
     // files ++;
     sprintf(s, "%o", buffer.st_mode);
-    // printf("%o\n", buffer.st_mode);
+    printf("%o\n", buffer.st_mode);
     // printf("File: %s | Permissions: %s\n", file->d_name, s);
     c = s[0];
     // printf("%s\n", c);
