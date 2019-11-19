@@ -100,19 +100,19 @@ int main(int argc, char *argv[]){
 // If a command line argument is entered, use that as the directory to scan.
 // If not, the program should ask the user to enter a directory to scan.
 // In either case, don't assume your user knows what they are doing, if an invalid directory is entered, take reasonable action (*ahem* errno *cough cough*)
+char name[100];
   if (argc > 1){
     d = opendir(argv[1]);
-    printf("Printing information for directory '%s'\n", argv[1]);
+    name = argv[1];
   }
   else{
-    char name[100];
     printf("Enter a file name: \n");
-    fgets(name, 100, stdin);
+    fgets(name, 100, stdin); //adds a newline to the end of name
     name[strlen(name)-1] = 0; //changes newline to NULL
-    printf("Printing information for directory '%s'\n", name); //adds a newline to the end of name
     d = opendir(name);
     // d = opendir(".");
   }
+  printf("Printing information for directory '%s'\n", name);
   if (d == NULL || errno < 0){
     printf("ERROR opening directory: %d: %s\n",errno, strerror(errno));
     return 0;
@@ -120,7 +120,7 @@ int main(int argc, char *argv[]){
   struct dirent *file;
   file = readdir(d);
   struct stat buffer;
-  stat(".", &buffer);
+  stat(name, &buffer);
   if (errno < 0){
     printf("ERROR in stat directory: %d: %s\n",errno, strerror(errno));
     return 0;
@@ -171,15 +171,15 @@ int main(int argc, char *argv[]){
   printf("%s\n", dir);
   printf("Regular files:\n");
   printf("%s\n", reg);
-  d = opendir("testfolder");
-  file = readdir(d);
-  stat(file->d_name, &buffer);
-  printf("filename: %s | permissions: %o\n", file->d_name, buffer.st_mode);
-  file = readdir(d);
-  stat(file->d_name, &buffer);
-  printf("filename: %s | permissions: %o\n", file->d_name, buffer.st_mode);
-  file = readdir(d);
-  stat(file->d_name, &buffer);
-  printf("filename: %s | permissions: %o\n", file->d_name, buffer.st_mode);
-  return 0;
+  // d = opendir("testfolder");
+  // file = readdir(d);
+  // stat(file->d_name, &buffer);
+  // printf("filename: %s | permissions: %o\n", file->d_name, buffer.st_mode);
+  // file = readdir(d);
+  // stat(file->d_name, &buffer);
+  // printf("filename: %s | permissions: %o\n", file->d_name, buffer.st_mode);
+  // file = readdir(d);
+  // stat(file->d_name, &buffer);
+  // printf("filename: %s | permissions: %o\n", file->d_name, buffer.st_mode);
+  // return 0;
 }
