@@ -108,7 +108,8 @@ int main(int argc, char *argv[]){
     char name[100];
     printf("Enter a file name: \n");
     fgets(name, 100, stdin);
-    printf("Printing information for directory '%s'\n", name);
+    printf("Printing information for directory '%s'\n", name); //adds a newline to the end of name
+    name[strlen(name)-1] = 0; //changes newline to NULL
     d = opendir(name);
     // d = opendir(".");
   }
