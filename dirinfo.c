@@ -175,5 +175,6 @@ int main(int argc, char *argv[]){
   file = readdir(d);
   file = readdir(d);
   stat(file->d_name, &buffer);
+  printf("filename:  | permissions: %o\n", file->d_name, buffer.st_mode);
   return 0;
 }
