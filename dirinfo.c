@@ -160,6 +160,7 @@ int main(int argc, char *argv[]){
       strcat(dir, file->d_name);
       strcat(dir, "\n");
       // files = filecount(file->d_name, "./", files);
+      printf("Added %s permissions %o to dir\n",file->d_name, buffer.st_mode );
     }
     // printf("\t%s\n", file->d_name);
     file = readdir(d);
