@@ -173,7 +173,11 @@ int main(int argc, char *argv[]){
   printf("%s\n", reg);
   d = opendir("testfolder");
   file = readdir(d);
+  stat(file->d_name, &buffer);
+  printf("filename: %s | permissions: %o\n", file->d_name, buffer.st_mode);
   file = readdir(d);
+  stat(file->d_name, &buffer);
+  printf("filename: %s | permissions: %o\n", file->d_name, buffer.st_mode);
   file = readdir(d);
   stat(file->d_name, &buffer);
   printf("filename: %s | permissions: %o\n", file->d_name, buffer.st_mode);
