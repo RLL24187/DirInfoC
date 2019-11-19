@@ -113,7 +113,7 @@ int main(int argc, char *argv[]){
     d = opendir(name);
     // d = opendir(".");
   }
-  if (errno < 0){
+  if (d == NULL || errno < 0){
     printf("ERROR opening directory: %d: %s\n",errno, strerror(errno));
     return 0;
   }
