@@ -138,8 +138,8 @@ int main(int argc, char *argv[]){
   // }
   struct stat buffer;
   printf("Statistics for directory:\n");
-  char reg[200];
-  char dir[200];
+  char reg[1000];
+  char dir[1000];
   char s[100];
 
   char c;
