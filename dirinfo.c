@@ -119,8 +119,8 @@ int main(int argc, char *argv[]){
     strcpy(path, name);
   // d = opendir(".");
   }
-  printf("name: '%s'\n", name);
-  printf("path: %s\n", path);
+  // printf("name: '%s'\n", name);
+  // printf("path: %s\n", path);
   char no_slash_name [199];
   strcpy(no_slash_name, name);
   no_slash_name[strlen(no_slash_name)-1] = 0; //changes newline to NULL
