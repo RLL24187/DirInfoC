@@ -95,47 +95,72 @@ void convertpermissions(char * c, int offset){ //offset for directory: 1, regula
 }
 
 int main(int argc, char *argv[]){
-  DIR *d;
   // Your program should handle user input as follows:
-// If a command line argument is entered, use that as the directory to scan.
-// If not, the program should ask the user to enter a directory to scan.
-// In either case, don't assume your user knows what they are doing, if an invalid directory is entered, take reasonable action (*ahem* errno *cough cough*)
-char name[100];
+  // If a command line argument is entered, use that as the directory to scan.
+  // If not, the program should ask the user to enter a directory to scan.
+  // In either case, don't assume your user knows what they are doing, if an invalid directory is entered, take reasonable action (*ahem* errno *cough cough*)
+  char name[200];
+  char path[200];
   if (argc > 1){
     // d = opendir(argv[1]);
     strcpy(name, argv[1]);
+    strcpy(path, "");
   }
   else{
     printf("Enter a file name: \n");
     fgets(name, 100, stdin); //adds a newline to the end of name
-    name[strlen(name)-1] = 0; //changes newline to NULL
-    // d = opendir(".");
+    if (name[strlen(name) - 2] != '/'){
+      name[strlen(name) - 1] = '/';
+      name[strlen(name)] = '\0';
+    }
+    else{
+      name[strlen(name) - 1] = '\0';
+    }
+    strcpy(path, name);
+  // d = opendir(".");
   }
+  printf("name: '%s'\n", name);
+  printf("path: %s\n", path);
+  char no_slash_name [199];
+  strcpy(no_slash_name, name);
+  no_slash_name[strlen(no_slash_name)-1] = 0; //changes newline to NULL
+  DIR *d;
   d = opendir(name);
-  printf("Printing information for directory '%s'\n", name);
-  if (d == NULL || errno < 0){
+  printf("Printing information for directory '%s'\n", no_slash_name);
+  if (!d || errno < 0){
     printf("ERROR opening directory: %d: %s\n",errno, strerror(errno));
     return 0;
   }
   struct dirent *file;
   file = readdir(d);
+  // if (errno < 0){
+  //   printf("ERROR in readdir: %d: %s\n",errno, strerror(errno) );
+  // }
   struct stat buffer;
   printf("Statistics for directory:\n");
   char reg[200];
   char dir[200];
   char s[100];
+
   char c;
   int bytes = 0;
   // int files = 0;
   strcpy(reg, ""); //makes sure that they are empty strings
   strcpy(dir, ""); //for some reason reg and dir had weird chars and the beginning
   while (file){
-    stat(file->d_name, &buffer);
+    if (errno < 0){
+      printf("ERROR in readdir: %d: %s\n",errno, strerror(errno) );
+    }
+    // if (stat(file->d_name, &buffer) < 0){
+    if (stat(strcat(path, file->d_name), &buffer) < 0){
+        printf("ERROR in stat: %d: %s\n", errno, strerror(errno) );
+    }
     bytes += buffer.st_size;
     // files ++;
     sprintf(s, "%o", buffer.st_mode);
     // printf("%o\n", buffer.st_mode);
-    // printf("File: %s | Permissions: %s\n", file->d_name, s);
+    printf("File: %s | Permissions: %s\n", path, s);
+    strcpy(path, name);
     c = s[0];
     // printf("%s\n", c);
     if (c =='1'){ //regular
@@ -157,8 +182,8 @@ char name[100];
       // files = filecount(file->d_name, "./", files);
       // printf("Added %s permissions %o to dir\n",file->d_name, buffer.st_mode );
     }
-    // printf("\t%s\n", file->d_name);
     file = readdir(d);
+    // printf("\t%s\n", file->d_name);
   }
   printf("Total Directory Size: %d Bytes\n", bytes);
   // printf("Number of Files in Directory: %d\n", files);
