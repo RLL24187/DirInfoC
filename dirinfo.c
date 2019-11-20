@@ -159,7 +159,7 @@ int main(int argc, char *argv[]){
     // files ++;
     sprintf(s, "%o", buffer.st_mode);
     // printf("%o\n", buffer.st_mode);
-    printf("File: %s | Permissions: %s\n", path, s);
+    // printf("File: %s | Permissions: %s\n", path, s);
     strcpy(path, name);
     c = s[0];
     // printf("%s\n", c);
